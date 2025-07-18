@@ -1,0 +1,47 @@
+<%-include('./navbar.ejs')%>
+<body>
+    <div class="container my-4 bg-dark">
+        <div class="row p-1">
+            <div class="col-lg-10 col-md-9 col-sm-8 p-1">
+                <div class="card">
+                    <div class="card-header">Post - #<%=post.post_id%></div>
+                    <div class="card-body">
+                        <div class="card-title"><h4><%=post.post_title%></h4></div>
+                        <hr>
+                        <div class="card-text"><%=post.post_body%></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 p-1">
+                <div class="card">
+                    <div class="card-header"><a href="/view/<%=post.member_id%>" class="nav-link"> Member id - <%=post.member_id%></a></div>
+                    <img src="/<%=post.icon_path%>" alt="user icon" class="card-img">
+                </div>
+            </div>
+            <div class="col-12 p-1">
+                <h4>Reply:</h4>
+                <form action="/reply/<%=post.post_id%>" method="post">
+                    <textarea type="text" name="reply" id="reply" style="width: 100%;" placeholder="100 words max."></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-danger mt-1">Submit reply</button>
+                </form>
+            </div>
+            <div class="col-12 p-1">
+                <h4>Replies:</h4>
+            </div>
+            <%for(let j=0;j<replies.length;j++){%>
+                <div class="col-12 p-1">
+                    <div class="card">
+                        <div class="card-header"><a href="/view/<%=replies[j].member_id%>" class="nav-link">Replied by - <%=replies[j].member_id%></a></div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <%=replies[j].post_body%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <%}%>
+            
+        </div>
+    </div>
+</body>

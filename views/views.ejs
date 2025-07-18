@@ -1,0 +1,49 @@
+<%-include('./navbar.ejs')%>
+
+<body>
+    <div class="container bg-dark my-4">
+        <div class="row p-1">
+            <div class="col-lg-4 col-md-6 col-xl-3 p-1">
+                <div class="card">
+        <div class="card-header">#<%=user.member_id%></div>
+        <img src="/<%=active.rows[0].icon_path%>" alt="profile picture" class="card-image">
+        <div class="card-body">
+            <h3><%=user.member_name%></h3>
+        </div>
+    </div>
+</div>
+<div class="col-lg-8 col-md-6 col-xl-9 p-1">
+    <div class="card">
+        <div class="card-header">Description</div>
+        <!--Description WIP -->
+        <div class="card-body" id="description"></div>
+    </div>
+</div>
+        </div>
+        
+    </div>
+    
+
+    <script>
+
+
+    async function fetchUserData(){
+  const response = await fetch(`/description/<%=user.member_id%>`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error fetching user data: ${response.statusText}`);
+  }
+
+  dataJson=await response.json();
+
+  document.getElementById('description').innerText=dataJson.description;
+}
+
+fetchUserData();
+    </script>
+</body>
